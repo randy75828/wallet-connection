@@ -30,12 +30,12 @@ export async function signEip712New() {
   console.log('carbonSDK1: ', connectedSdk)
 
   // // 1. Merge Account (Self-Merge)
-
-  const result = await connectedSdk.evmmerge.mergeAccount({
-    creator: evmBech32Address,
-    pubKey: publicKey,
-  })
-  console.log('result: ', result)
+  // will only work when u deposit funds into the eth address
+  // const result = await connectedSdk.evmmerge.mergeAccount({
+  //   creator: evmBech32Address,
+  //   pubKey: publicKey,
+  // })
+  // console.log('result: ', result)
 
   // // 1b. Sign Public key (For ppl to help u merge later)
   // const pubKeySig = await metamask.signPublicKeyMergeAccount(
@@ -59,32 +59,32 @@ export async function signEip712New() {
   // console.log("result: ",result)
   // console.log('carbonSDK2: ', connectedSdk)
 
-  // //3. Submitting a gov proposal (to test `Any` Type)
-  // const result = await connectedSdk.gov.submit({
-  //   content: {
-  //     typeUrl: '/Switcheo.carbon.oracle.CreateOracleProposal',
-  //     value: {
-  //       title: 'proposal title',
-  //       description: 'proposal desc',
-  //       msg: {
-  //         id: 'DXBT4',
-  //         description: 'Demex XBT Index',
-  //         minTurnoutPercentage: 67,
-  //         maxResultAge: 100,
-  //         securityType: 'SecuredByValidators',
-  //         resultStrategy: 'median',
-  //         resolution: 1,
-  //         spec: '{}',
-  //       },
-  //     },
-  //   },
-  //   initialDeposit: [{
-  //     denom: 'swth',
-  //     amount: '2131231',
-  //   }],
-  //   proposer: connectedSdk.wallet.bech32Address,
-  // })
-  // console.log(result)
+  //3. Submitting a gov proposal (to test `Any` Type)
+  const result = await connectedSdk.gov.submit({
+    content: {
+      typeUrl: '/Switcheo.carbon.oracle.CreateOracleProposal',
+      value: {
+        title: 'proposal title',
+        description: 'proposal desc',
+        msg: {
+          id: 'DXBT4',
+          description: 'Demex XBT Index',
+          minTurnoutPercentage: 67,
+          maxResultAge: 100,
+          securityType: 'SecuredByValidators',
+          resultStrategy: 'median',
+          resolution: 1,
+          spec: '{}',
+        },
+      },
+    },
+    initialDeposit: [{
+      denom: 'swth',
+      amount: '2131231',
+    }],
+    proposer: connectedSdk.wallet.bech32Address,
+  })
+  console.log(result)
 
   //  //3b. Submitting a cosmos gov proposal (to test `Any` Type)
   //  const result = await connectedSdk.gov.submit({
